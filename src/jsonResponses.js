@@ -33,10 +33,18 @@ const getPotions = (request, response) => {
 const healing = (request, response) => {
     const responseJSON = {
         name: 'Healing',
-        desc: 'A viscous red liquid. Upon use, heal 2d4 + 2 HP',
+        desc: 'A viscous red liquid. When used, heal 2d4 + 2 HP.',
     };
     return respondJSON(request, response, 200, responseJSON);
 };
+const invisibility = (request, response) => {
+    const responseJSON = {
+        name: 'Invisibility',
+        desc: 'A bottle that appears empty but feels full. When used, become invisible for 1 hour.',
+    };
+    return respondJSON(request, response, 200, responseJSON);
+};
+
 
 
 
@@ -109,5 +117,6 @@ module.exports = {
     notReal,
     notRealMeta,
     addPotion,
-    healing
+    healing,
+    invisibility
 };

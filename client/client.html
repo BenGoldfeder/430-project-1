@@ -31,8 +31,15 @@
                         content.innerHTML += '<br>';
                         content.innerHTML += `<h3>Potion of ${obj.potions[potion].name}</h3>`;
                         content.innerHTML += `<p>Description: ${obj.potions[potion].desc}</p>`;
-
                     }
+                }
+                
+                if (obj.name) {
+                    content.innerHTML = '<b>Success!</b>';
+                    content.innerHTML += '<br>';
+                    content.innerHTML += '<br>';
+                    content.innerHTML += `<h3>Potion of ${obj.name}</h3>`;
+                    content.innerHTML += `<p>Description: ${obj.desc}</p>`;
                 }
                 
             }
@@ -132,7 +139,7 @@
             
             const premadeForm = document.querySelector('#premadeForm');
             const getPremade = (e) => requestPremade(e, premadeForm);
-            addForm.addEventListener('submit', getPremade);
+            premadeForm.addEventListener('submit', getPremade);
         };
 
         window.onload = init;
@@ -156,9 +163,9 @@
         <h3>Add a New Potion</h3>
         <form id="addForm" action="/addPotion" method="post">
             <label for="name">Name: </label>
-            <input id="nameField" type="text" name="name" class="controls myEntry"/>
+            <input id="nameField" type="text" name="name" class="controls myEntry" />
             <label for="desc">Description: </label>
-            <input id="descField" name="desc" class="controls myEntry"/>
+            <input id="descField" name="desc" class="controls myEntry" />
             <input class="controls myButton" type="submit" value="Add Potion" />
         </form>
 
@@ -182,6 +189,7 @@
             </select>
             <input class="controls myButton" type="submit" value="Find in Handbook" />
         </form>
+
 
 
 
