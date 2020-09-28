@@ -1,0 +1,132 @@
+*{
+    font-family: 'Nunito Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+body{
+    background: #202024;
+}
+
+h1{
+    padding: 0.1em;
+    background: rgb(9, 186, 139);
+    text-align: center;
+    text-justify: auto;
+    font-size: 5em;
+    letter-spacing: 2px;
+    font-family: 'Fredoka One', cursive;
+}
+
+h2{
+   font-size: 1.1em;
+   font-weight: 900;
+   letter-spacing: 0.5px;
+}
+
+h3{
+    font-size: 1.0em;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+ }
+
+p{
+    font-size: 1.0em;
+}
+
+
+#controlBlock {
+    padding: 1.5em;
+    text-align: center;
+    margin: 1em;
+    background: #36373f;
+    box-shadow : 0px 2px 7px rgba(0, 0, 0, 0.6);
+    height: 295px;
+    justify-content: center;
+}
+
+#selection{
+    color: black;
+    width: 220px;
+}
+
+option{
+    color: black;
+    font-weight: normal;
+}
+
+.controls{
+    border-radius : 60px;
+    padding : 15px 25px;
+    box-shadow : 0 1px 3px rgba(0, 0, 0, 0.4);
+    font-size : 0.9em;
+    font-weight: 900;
+    display : inline-block;
+    cursor : pointer;
+    border : 0 solid transparent;
+    margin: 10px 5px 30px 0px;
+}
+
+.myEntry{
+    color: black;
+}
+
+.myButton{
+    border-color: transparent;
+    background: rgb(53, 53, 53);
+    background-image: linear-gradient(to bottom right, rgb(9, 186, 139), rgb(18, 153, 108));
+    letter-spacing: 0.6px;
+    color : whitesmoke;
+    text-decoration : none;
+}
+.myButton:hover{
+    background:rgb(6, 156, 108);
+}
+.myButton:active{
+    background: rgb(6, 156, 108);
+    box-shadow : inset 0 0 7px rgba(0, 0, 0, 0.7);
+}
+.myButton:focus{
+    outline:0;
+}
+
+
+
+
+#resultsRow{
+    padding: 1.5em;
+    margin: 1em;
+    background: #36373f;
+    box-shadow : 0px 2px 7px rgba(0, 0, 0, 0.6);
+}
+
+#status{
+    height:32px;
+}
+
+.result {
+   position: relative;
+   height: 175px;
+   width: 100px;
+   float:left;
+   border:1px solid rgb(209, 209, 209);
+   border-radius: 5px;
+   padding:10px;
+   margin-left:10px;
+   margin-bottom:10px;
+   text-align: center;
+}
+
+.result img {
+   position: absolute;
+   left: 10px;
+   bottom: 10px;
+   display:block;
+}
+
+.result span{
+   font-size:13px;
+   font-weight:bold;
+   display:block;
+}

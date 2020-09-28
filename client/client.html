@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Cauldron API</title>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900|Staatliches|Fredoka+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+
+
+
+    <script type="text/babel">
+
+
+        const parseJSON = (xhr, content) => {
+
+            if (xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json') {
+                const obj = JSON.parse(xhr.response);
+                console.dir(obj);
+                
+                const p = document.createElement('p');
+                const h2 = document.createElement('h2');
+                
+                if (obj.message) {
+                    content.innerHTML += `<p>${obj.message}</p>`
+                }
+                
+                if (obj.potions) {
+                    for (let potion in obj.potions){
+                        content.innerHTML += '<br>';
+                        content.innerHTML += `<h3>Potion of ${obj.potions[potion].name}</h3>`;
+                        content.innerHTML += `<p>Description: ${obj.potions[potion].desc}</p>`;
+
+                    }
+                }
+                
+            }
+        };
+
+
+
+        const handleResponse = (xhr, parseResponse) => {
+
+            const content = document.querySelector('#content');
+            switch(xhr.status) {
+                case 200:
+                    content.innerHTML = '<b>Success!</b>';
+                    break;
+                case 201:
+                    content.innerHTML = '<b>Created!</b>';
+                    break;
+                case 204:
+                    content.innerHTML = '<b>Updated (No Content)</b>';
+                    break;
+                case 400:
+                    content.innerHTML = '<b>Bad Request.</b>';
+                    break;
+                case 404:
+                    content.innerHTML = '<b>Resource Not Found</b>';
+                    break;
+                default:
+                    content.innerHTML = '<p>Error code not implemented</p>';
+                    break;
+            }
+            parseJSON(xhr, content);
+        };
+
+
+       
+        const requestUpdate = (e, potionForm) => {
+            const url = '/getPotions'  //potionForm.querySelector('#urlField').value;
+            const method = potionForm.querySelector('#methodSelect').value;
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open(method, url);
+            xhr.setRequestHeader('Accept', 'application/json');
+            
+            xhr.onload = () => handleResponse(xhr);
+            
+            xhr.send();
+            e.preventDefault();
+            return false;
+        };
+
+
+
+        const requestPremade = (e, premadeForm) => {
+            let lookupUrl = premadeForm.querySelector('#premadeSelect').value;
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open('get', lookupUrl);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.onload = () => handleResponse(xhr);
+            
+            xhr.send();
+            e.preventDefault();
+            return false;
+        };
+
+
+
+        const sendPost = (e, addForm) => {
+            
+            e.preventDefault();
+            const nameAction = addForm.getAttribute('action');
+            const nameMethod = addForm.getAttribute('method');
+            const nameField = addForm.querySelector('#nameField');
+            const descField = addForm.querySelector('#descField')
+            
+            const xhr = new XMLHttpRequest();
+            xhr.open(nameMethod, nameAction);
+            xhr.setRequestHeader('Accept', 'application/json');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+            xhr.onload = () => handleResponse(xhr);
+            const formData = `name=${nameField.value}&desc=${descField.value}`;
+            xhr.send(formData);
+            return false;
+        };
+
+
+
+        const init = () => {
+            const potionForm = document.querySelector('#potionForm');
+            const getPotions = (e) => requestUpdate(e,potionForm);
+            potionForm.addEventListener('submit', getPotions);
+            
+            const addForm = document.querySelector('#addForm');
+            const addPotion = (e) => sendPost(e, addForm);
+            addForm.addEventListener('submit', addPotion);
+            
+            const premadeForm = document.querySelector('#premadeForm');
+            const getPremade = (e) => requestPremade(e, premadeForm);
+            addForm.addEventListener('submit', getPremade);
+        };
+
+        window.onload = init;
+
+    </script>
+
+
+
+</head>
+
+
+
+
+<body>
+
+    <header>
+        <h1>Cauldron API</h1>
+    </header>
+
+    <div id="controlBlock">
+        <h3>Add a New Potion</h3>
+        <form id="addForm" action="/addPotion" method="post">
+            <label for="name">Name: </label>
+            <input id="nameField" type="text" name="name" class="controls myEntry"/>
+            <label for="desc">Description: </label>
+            <input id="descField" name="desc" class="controls myEntry"/>
+            <input class="controls myButton" type="submit" value="Add Potion" />
+        </form>
+
+        <form id="potionForm" action="/getPotions" method="get">
+
+            <select id="methodSelect" class="controls myEntry">
+                <option value="get">GET</option>
+                <option value="head">HEAD</option>
+            </select>
+            <input class="controls myButton" type="submit" value="Show My List" />
+        </form>
+
+
+        <h3>Or: Find A Premade Potion</h3>
+
+        <form id="premadeForm" action="/getPremade" method="get">
+
+            <select id="premadeSelect" class="controls myEntry">
+                <option value="/healing">Healing</option>
+                <option value="/invisibility">Invisibility</option>
+            </select>
+            <input class="controls myButton" type="submit" value="Find in Handbook" />
+        </form>
+
+
+
+
+    </div>
+    <div id="resultsRow">
+        <div id="content">
+            No Results Yet!
+        </div>
+    </div>
+
+</body>
+
+</html>
