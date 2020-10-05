@@ -7,7 +7,9 @@ const jsonHandler = require('./jsonResponses.js');
 const port = process.env.PORT || process.env.NODE_PORT || 3000;
 
 
-
+/*
+urlStruct is parsed through once requests are received, in order to determine the function to be executed
+*/  
 const urlStruct = {
 
     GET: {
@@ -33,7 +35,9 @@ const urlStruct = {
 };
 
 
-
+/*
+Pushes data from post requests to the handler script
+*/  
 const handlePost = (request, response, parsedURL) => {
     if (parsedURL.pathname === '/addPotion') {
         const body = [];
@@ -57,7 +61,9 @@ const handlePost = (request, response, parsedURL) => {
 };
 
 
-
+/*
+parses through options in urlStruct to find the correct function to employ
+*/  
 const handleGet = (request, response, parsedURL) => {
     const params = query.parse(parsedURL.query);
 

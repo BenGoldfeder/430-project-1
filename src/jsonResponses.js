@@ -1,5 +1,14 @@
+
+/*
+Object containing user-submitted potions including their name and description
+*/  
 const potions = {};
 
+
+
+/*
+Handles sending JSON back to the webpage
+*/  
 const respondJSON = (request, response, status, object) => {
     const headers = {
         'Content-Type': 'application/json',
@@ -10,7 +19,9 @@ const respondJSON = (request, response, status, object) => {
 };
 
 
-
+/*
+Handles sending JSON metadata back to the webpage
+*/  
 const respondJSONMeta = (request, response, status) => {
     const headers = {
         'Content-Type': 'application/json',
@@ -20,7 +31,9 @@ const respondJSONMeta = (request, response, status) => {
 };
 
 
-
+/*
+Returns the list of user potions
+*/  
 const getPotions = (request, response) => {
     const responseJSON = {
         potions,
@@ -32,7 +45,9 @@ const getPotions = (request, response) => {
 
 
 
-
+/*
+Below are the 6 pre-written potions based on info found in D&D5E handbooks 
+*/  
 const healing = (request, response) => {
     const responseJSON = {
         name: 'Healing',
@@ -77,13 +92,13 @@ const flying = (request, response) => {
 };
 
 
-
-
-
 const getPotionsMeta = (request, response) => respondJSONMeta(request, response, 200);
 
 
 
+/*
+Handles adding user-submitted info into the potions object
+*/  
 const addPotion = (request, response, body) => {
     const responseJSON = {
         message: 'Name and description are both required',
@@ -115,6 +130,9 @@ const addPotion = (request, response, body) => {
 
 
 
+/*
+Below are functions for handling errors
+*/  
 const notReal = (request, response) => {
     const responseJSON = {
         message: 'The user you are looking for was not found!',
@@ -123,11 +141,7 @@ const notReal = (request, response) => {
     return respondJSON(request, response, 404, responseJSON);
 };
 
-
-
 const notRealMeta = (request, response) => respondJSONMeta(request, response, 404);
-
-
 
 const notFound = (request, response) => {
     const responseJSON = {
@@ -137,9 +151,9 @@ const notFound = (request, response) => {
     return respondJSON(request, response, 404, responseJSON);
 };
 
-
-
 const notFoundMeta = (request, response) => respondJSONMeta(request, response, 404);
+
+
 
 module.exports = {
     getPotions,

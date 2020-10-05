@@ -13,6 +13,9 @@
     <script type="text/babel">
 
 
+        /*
+        Takes responses after status codes have been handled and displays the requested info to the user
+        */   
         const parseJSON = (xhr, content) => {
 
             if (xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json' && document.querySelector('#typePicker').value != "text/xml") {
@@ -65,7 +68,9 @@
         };
 
 
-
+        /*
+        Displays status to the user by checking the returned status codes
+        */  
         const handleResponse = (xhr, parseResponse) => {
 
             const content = document.querySelector('#content');
@@ -93,7 +98,10 @@
         };
 
 
-       
+
+        /*
+        Requests a list of the user-submitted potion and their related info
+        */  
         const requestUpdate = (e, potionForm) => {
             const url = '/getPotions'  //potionForm.querySelector('#urlField').value;
             const method = potionForm.querySelector('#methodSelect').value;
@@ -111,6 +119,9 @@
 
 
 
+        /*
+        Requests info on some of the pre-written potions that can be selected from the dropdown menu
+        */  
         const requestPremade = (e, premadeForm) => {
             let lookupUrl = premadeForm.querySelector('#premadeSelect').value;
             
@@ -126,6 +137,9 @@
 
 
 
+        /*
+        Sends the user-entered potion info to the 'users' object in data
+        */  
         const sendPost = (e, addForm) => {
             
             e.preventDefault();
@@ -147,6 +161,9 @@
 
 
 
+        /*
+        Sets up the initial state of the page and links event listeners
+        */  
         const init = () => {
             const potionForm = document.querySelector('#potionForm');
             const getPotions = (e) => requestUpdate(e,potionForm);
