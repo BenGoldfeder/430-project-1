@@ -18,6 +18,10 @@ const urlStruct = {
 
         '/healing': jsonHandler.healing,
         '/invisibility': jsonHandler.invisibility,
+        '/waterbreathing': jsonHandler.waterbreathing,
+        '/sharpness': jsonHandler.sharpness,
+        '/giantstrength': jsonHandler.giantstrength,
+        '/flying': jsonHandler.flying,
 
         notFound: jsonHandler.notFound,
     },

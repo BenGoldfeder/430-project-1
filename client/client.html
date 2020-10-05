@@ -15,7 +15,7 @@
 
         const parseJSON = (xhr, content) => {
 
-            if (xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json') {
+            if (xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json' && document.querySelector('#typePicker').value != "text/xml") {
                 const obj = JSON.parse(xhr.response);
                 console.dir(obj);
                 
@@ -36,12 +36,31 @@
                 
                 if (obj.name) {
                     content.innerHTML = '<b>Success!</b>';
-                    content.innerHTML += '<br>';
-                    content.innerHTML += '<br>';
                     content.innerHTML += `<h3>Potion of ${obj.name}</h3>`;
                     content.innerHTML += `<p>Description: ${obj.desc}</p>`;
                 }
                 
+            } else if (document.querySelector('#typePicker').value === "text/xml")  {
+                
+                content.innerHTML = '<b>Success! Check console for requested XML data!</b>';
+                const obj = JSON.parse(xhr.response);
+                let responseXML = `<response>`
+                if (obj.message) {
+                    responseXML = `${responseXML} <message>${obj.message}</message>`;
+                }
+                if (obj.potions) {
+                    for (let potion in obj.potions){
+                        responseXML = `${responseXML} <name>${obj.potions[potion].name}</name>`;
+                        responseXML = `${responseXML} <desc>${obj.potions[potion].desc}</desc>`;
+                    }
+                }
+                if (obj.name) {
+                    responseXML = `${responseXML} <name>${obj.name}</name>`;
+                    responseXML = `${responseXML} <desc>${obj.desc}</desc>`;
+                }
+                
+                responseXML = `${responseXML} </response>`;
+                console.dir(responseXML);
             }
         };
 
@@ -113,7 +132,7 @@
             const nameAction = addForm.getAttribute('action');
             const nameMethod = addForm.getAttribute('method');
             const nameField = addForm.querySelector('#nameField');
-            const descField = addForm.querySelector('#descField')
+            const descField = addForm.querySelector('#descField');
             
             const xhr = new XMLHttpRequest();
             xhr.open(nameMethod, nameAction);
@@ -175,6 +194,12 @@
                 <option value="get">GET</option>
                 <option value="head">HEAD</option>
             </select>
+            
+            <select id="typePicker" class="controls myEntry">
+                <option value="application/json">JSON</option>
+                <option value="text/xml">XML</option>
+            </select>       
+            
             <input class="controls myButton" type="submit" value="Show My List" />
         </form>
 
@@ -186,6 +211,10 @@
             <select id="premadeSelect" class="controls myEntry">
                 <option value="/healing">Healing</option>
                 <option value="/invisibility">Invisibility</option>
+                <option value="/waterbreathing">Water Breathing</option>
+                <option value="/sharpness">Sharpness</option>
+                <option value="/giantstrength">Giant Strength</option>
+                <option value="/flying">Flying</option>
             </select>
             <input class="controls myButton" type="submit" value="Find in Handbook" />
         </form>

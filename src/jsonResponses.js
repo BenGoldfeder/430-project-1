@@ -30,6 +30,9 @@ const getPotions = (request, response) => {
 
 
 
+
+
+
 const healing = (request, response) => {
     const responseJSON = {
         name: 'Healing',
@@ -44,6 +47,35 @@ const invisibility = (request, response) => {
     };
     return respondJSON(request, response, 200, responseJSON);
 };
+const waterbreathing = (request, response) => {
+    const responseJSON = {
+        name: 'Water Breathing',
+        desc: 'A cloudy, deep blue liquid. When used, you can breathe underwater for up to 1 hour.',
+    };
+    return respondJSON(request, response, 200, responseJSON);
+};
+const sharpness = (request, response) => {
+    const responseJSON = {
+        name: 'Sharpness',
+        desc: 'A clear oil with floating flecks of silver. When used to coat a weapon, that weapon gains +3 to attack and damage rolls.',
+    };
+    return respondJSON(request, response, 200, responseJSON);
+};
+const giantstrength = (request, response) => {
+    const responseJSON = {
+        name: 'Giant Strength',
+        desc: 'A luminescent orange serum. When used, increase your strength score to 23.',
+    };
+    return respondJSON(request, response, 200, responseJSON);
+};
+const flying = (request, response) => {
+    const responseJSON = {
+        name: 'Flying',
+        desc: 'A cloud-white liquid with a thin layer of fog floating atop. When used, gain a flying speed equal to your walking speed for 1 hour.',
+    };
+    return respondJSON(request, response, 200, responseJSON);
+};
+
 
 
 
@@ -118,5 +150,9 @@ module.exports = {
     notRealMeta,
     addPotion,
     healing,
-    invisibility
+    invisibility,
+    waterbreathing,
+    sharpness,
+    giantstrength,
+    flying
 };
